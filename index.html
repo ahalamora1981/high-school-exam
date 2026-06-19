@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高中合格考 · 练习题集</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300..800&family=JetBrains+Mono:wght@400;500;700&family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+    /* ===========================================
+       FIXED 16:9 STAGE: MANDATORY BASE STYLES
+       =========================================== */
+    html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: #000;
+    }
+    .deck-viewport {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        background: #000;
+    }
+    .deck-stage {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        transform-origin: 0 0;
+        background: #efe7d4;
+    }
+    .slide {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        display: block;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        background: #efe7d4;
+    }
+    .slide.active, .slide.visible {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+    }
+    img, video, canvas, svg { max-width: 100%; max-height: 100%; }
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.2s !important;
+        }
+    }
+
+    /* ===========================================
+       EDITORIAL FOREST THEME
+       =========================================== */
+    :root {
+        --green: #2e4a2a;
+        --green-deep: #243a21;
+        --green-lite: #3a5a36;
+        --pink: #e89cb1;
+        --pink-deep: #d27e96;
+        --cream: #efe7d4;
+        --cream-2: #e6dcc4;
+        --ink: #1a1a17;
+
+        --font-serif: 'Source Serif 4', 'Noto Serif SC', Georgia, serif;
+        --font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+
+        --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+        --duration: 0.6s;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: var(--font-serif);
+        background: var(--cream);
+        color: var(--ink);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===========================================
+       HUB PAGE LAYOUT
+       =========================================== */
+    .topbar {
+        position: absolute;
+        top: 56px;
+        left: 120px;
+        right: 120px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 5;
+    }
+    .topbar-label {
+        font-family: var(--font-mono);
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--green);
+    }
+    .monogram {
+        width: 64px;
+        height: 64px;
+        border: 2px solid var(--green);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-mono);
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        color: var(--green);
+    }
+    .footline {
+        position: absolute;
+        bottom: 56px;
+        left: 120px;
+        right: 120px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: var(--font-mono);
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--green);
+    }
+
+    .hub-eyebrow {
+        position: absolute;
+        top: 200px;
+        left: 120px;
+        font-family: var(--font-mono);
+        font-size: 24px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--green);
+    }
+    .hub-title {
+        position: absolute;
+        top: 240px;
+        left: 120px;
+        font-family: var(--font-serif);
+        font-size: 96px;
+        font-weight: 500;
+        line-height: 1.0;
+        letter-spacing: -0.02em;
+        color: var(--green);
+    }
+    .hub-rule {
+        position: absolute;
+        top: 360px;
+        left: 120px;
+        width: 160px;
+        height: 2px;
+        background: var(--green);
+    }
+    .hub-subtitle {
+        position: absolute;
+        top: 388px;
+        left: 120px;
+        font-family: var(--font-serif);
+        font-size: 28px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: var(--ink);
+        max-width: 720px;
+    }
+    .hub-subtitle strong {
+        color: var(--green-deep);
+        font-weight: 600;
+    }
+
+    .cards-grid {
+        position: absolute;
+        top: 200px;
+        right: 120px;
+        width: 840px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    .card {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        padding: 32px 36px;
+        border: 2px solid var(--green);
+        border-radius: 8px;
+        background: var(--cream-2);
+        text-decoration: none;
+        color: inherit;
+        transition: background 0.4s var(--ease-out), border-color 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+    }
+    .card:hover {
+        background: var(--cream);
+        border-color: var(--green-deep);
+        transform: translateX(6px);
+    }
+    .card-soon {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+    .card-icon {
+        width: 80px;
+        height: 80px;
+        border: 2px solid var(--green);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-serif);
+        font-size: 32px;
+        font-weight: 500;
+        color: var(--green);
+        flex-shrink: 0;
+    }
+    .card-body {
+        flex: 1;
+        min-width: 0;
+    }
+    .card-title {
+        font-family: var(--font-serif);
+        font-size: 40px;
+        font-weight: 500;
+        line-height: 1.0;
+        color: var(--green);
+        margin-bottom: 8px;
+    }
+    .card-meta {
+        font-family: var(--font-mono);
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--green-deep);
+    }
+    .card-arrow {
+        font-family: var(--font-mono);
+        font-size: 28px;
+        font-weight: 500;
+        color: var(--green);
+        flex-shrink: 0;
+    }
+    .card-soon .card-arrow {
+        color: var(--green-deep);
+        opacity: 0.6;
+    }
+    .card-soon .card-meta {
+        opacity: 0.6;
+    }
+
+    .stat-bar {
+        position: absolute;
+        bottom: 130px;
+        left: 120px;
+        display: flex;
+        gap: 40px;
+        align-items: center;
+        font-family: var(--font-mono);
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--green-deep);
+    }
+    .stat-bar-item {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+    }
+    .stat-bar-num {
+        font-family: var(--font-serif);
+        font-size: 32px;
+        font-weight: 500;
+        color: var(--green);
+    }
+    .stat-bar-dot {
+        width: 4px;
+        height: 4px;
+        background: var(--green);
+        border-radius: 50%;
+        opacity: 0.4;
+    }
+
+    /* Reveal animation */
+    .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity var(--duration) var(--ease-out), transform var(--duration) var(--ease-out);
+    }
+    .slide.active .reveal,
+    .slide.visible .reveal {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .reveal:nth-child(1) { transition-delay: 0.08s; }
+    .reveal:nth-child(2) { transition-delay: 0.16s; }
+    .reveal:nth-child(3) { transition-delay: 0.24s; }
+    .reveal:nth-child(4) { transition-delay: 0.32s; }
+    .reveal:nth-child(5) { transition-delay: 0.40s; }
+    .reveal:nth-child(6) { transition-delay: 0.48s; }
+    .reveal:nth-child(7) { transition-delay: 0.56s; }
+</style>
+</head>
+<body>
+<div class="deck-viewport">
+    <main class="deck-stage" id="deckStage">
+        <section class="slide active" data-index="0">
+            <div class="topbar">
+                <div class="topbar-label">High School · Qualifying Exam</div>
+                <div class="monogram">PH</div>
+            </div>
+
+            <div class="hub-eyebrow reveal">BEFORE YOU BEGIN</div>
+            <div class="hub-title reveal">练习题集</div>
+            <div class="hub-rule reveal"></div>
+            <div class="hub-subtitle reveal">
+                三个学科的核心知识点练习。<strong>选择学科</strong>，开始 25 道选择题的闯关。
+            </div>
+
+            <div class="cards-grid">
+                <a class="card reveal" href="物理/index.html" data-subject="physics">
+                    <div class="card-icon">物</div>
+                    <div class="card-body">
+                        <div class="card-title">物理</div>
+                        <div class="card-meta">PHYSICS · 25 题 · 满分 100</div>
+                    </div>
+                    <div class="card-arrow">→</div>
+                </a>
+                <div class="card card-soon reveal" data-subject="chemistry">
+                    <div class="card-icon">化</div>
+                    <div class="card-body">
+                        <div class="card-title">化学</div>
+                        <div class="card-meta">CHEMISTRY · 敬请期待</div>
+                    </div>
+                    <div class="card-arrow">·</div>
+                </div>
+                <div class="card card-soon reveal" data-subject="geography">
+                    <div class="card-icon">地</div>
+                    <div class="card-body">
+                        <div class="card-title">地理</div>
+                        <div class="card-meta">GEOGRAPHY · 敬请期待</div>
+                    </div>
+                    <div class="card-arrow">·</div>
+                </div>
+            </div>
+
+            <div class="stat-bar">
+                <div class="stat-bar-item">
+                    <span class="stat-bar-num">03</span>
+                    <span>学科</span>
+                </div>
+                <div class="stat-bar-dot"></div>
+                <div class="stat-bar-item">
+                    <span class="stat-bar-num">75+</span>
+                    <span>题目</span>
+                </div>
+                <div class="stat-bar-dot"></div>
+                <div class="stat-bar-item">
+                    <span class="stat-bar-num">100</span>
+                    <span>满分 / 学科</span>
+                </div>
+            </div>
+
+            <div class="footline">
+                <span>PHY · CHEM · GEO</span>
+                <span>2026 SPRING</span>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script>
+    /* Fixed 16:9 scaling */
+    (function () {
+        const stage = document.getElementById('deckStage');
+        function scale() {
+            const factor = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+            const x = (window.innerWidth - 1920 * factor) / 2;
+            const y = (window.innerHeight - 1080 * factor) / 2;
+            stage.style.transform = `translate(${x}px, ${y}px) scale(${factor})`;
+        }
+        scale();
+        window.addEventListener('resize', scale);
+    })();
+</script>
+</body>
+</html>
