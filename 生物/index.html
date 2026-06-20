@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高中合格考 · 生物练习题 · 25题</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300..800&family=JetBrains+Mono:wght@400;500;700&family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+    /* ===========================================
+       FIXED 16:9 STAGE: MANDATORY BASE STYLES
+       Include this ENTIRE block in every deck.
+       =========================================== */
+    html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: #000;
+    }
+    .deck-viewport {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        background: #000;
+    }
+    .deck-stage {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        transform-origin: 0 0;
+        background: #efe7d4;
+    }
+    .slide {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        display: block;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        background: #efe7d4;
+    }
+    .slide.active, .slide.visible {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+    }
+    img, video, canvas, svg {
+        max-width: 100%;
+        max-height: 100%;
+    }
+    .deck-controls {
+        position: fixed;
+        left: 50%;
+        bottom: 22px;
+        transform: translateX(-50%);
+        z-index: 1000;
+    }
+    @media print {
+        html, body { width: 1920px; height: auto; overflow: visible; background: #fff; }
+        .deck-viewport { position: static; overflow: visible; background: #fff; }
+        .deck-stage { position: static; width: auto; height: auto; transform: none !important; background: none; }
+        .slide {
+            position: relative;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            width: 1920px; height: 1080px;
+            break-after: page; page-break-after: always;
+        }
+        .slide:last-child { break-after: auto; page-break-after: auto; }
+        .deck-controls { display: none !important; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.2s !important;
+        }
+    }
+
+    /* ===========================================
+       EDITORIAL FOREST THEME
+       Forest green · dusty pink · oat cream
+       =========================================== */
+    :root {
+        --green: #2e4a2a;
+        --green-deep: #243a21;
+        --green-lite: #3a5a36;
+        --pink: #e89cb1;
+        --pink-deep: #d27e96;
+        --cream: #efe7d4;
+        --cream-2: #e6dcc4;
+        --ink: #1a1a17;
+
+        --font-serif: 'Source Serif 4', 'Noto Serif SC', Georgia, serif;
+        --font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+
+        --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+        --duration: 0.6s;
+    }
+
+    /* ===========================================
+       BASE TYPOGRAPHY
+       =========================================== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: var(--font-serif);
+        background: var(--cream);
+        color: var(--ink);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===========================================
+       TOPBAR & FOOTLINE — Editorial chrome
+       =========================================== */
+    .topbar {
+        position: absolute;
+        top: 56px;
+        left: 120px;
+        right: 120px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 5;
+    }
+    .topbar-label {
+        font-family: var(--font-mono);
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+    }
+    .topbar-right {
+        font-family: var(--font-mono);
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+    }
+    .monogram {
+        width: 64px;
+        height: 64px;
+        border: 2px solid var(--pink);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-mono);
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+    }
+    .footline {
+        position: absolute;
+        bottom: 56px;
+        left: 120px;
+        right: 120px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: var(--font-mono);
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+    }
+
+    /* ===========================================
+       COVER SLIDE
+       =========================================== */
+    .cover-slide {
+        background: var(--green);
+        color: var(--cream);
+    }
+    .cover-slide .topbar-label { color: var(--pink); }
+    .cover-slide .topbar-right { color: var(--cream); }
+    .cover-slide .monogram { border-color: var(--pink); color: var(--pink); }
+    .cover-main {
+        position: absolute;
+        top: 220px;
+        left: 120px;
+        right: 120px;
+        bottom: 160px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .cover-eyebrow {
+        font-family: var(--font-mono);
+        font-size: 28px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--cream);
+        margin-bottom: 36px;
+    }
+    .cover-title {
+        font-family: var(--font-serif);
+        font-size: 220px;
+        font-weight: 500;
+        line-height: 0.96;
+        letter-spacing: -0.02em;
+        color: var(--pink);
+        margin-bottom: 32px;
+    }
+    .cover-rule {
+        width: 240px;
+        height: 2px;
+        background: var(--pink);
+        margin: 32px 0;
+    }
+    .cover-subtitle {
+        font-family: var(--font-serif);
+        font-size: 44px;
+        font-weight: 400;
+        line-height: 1.3;
+        color: var(--cream);
+        margin-bottom: 60px;
+        max-width: 1100px;
+    }
+    .cover-stamp {
+        position: absolute;
+        top: 220px;
+        right: 140px;
+        width: 360px;
+        height: 360px;
+        border: 2px solid var(--pink);
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: var(--pink);
+    }
+    .cover-stamp-num {
+        font-family: var(--font-serif);
+        font-size: 200px;
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: -0.03em;
+    }
+    .cover-stamp-label {
+        font-family: var(--font-mono);
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        margin-top: 4px;
+    }
+    .cover-stamp-line {
+        width: 80px;
+        height: 2px;
+        background: var(--pink);
+        margin: 12px 0;
+    }
+    .cover-footline { color: var(--cream); }
+    .cover-btn {
+        position: absolute;
+        bottom: 130px;
+        right: 120px;
+        display: inline-flex;
+        align-items: center;
+        gap: 18px;
+        padding: 20px 36px;
+        background: transparent;
+        color: var(--pink);
+        border: 2px solid var(--pink);
+        border-radius: 6px;
+        font-family: var(--font-mono);
+        font-size: 24px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.4s var(--ease-out), color 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+    }
+    .cover-btn:hover {
+        background: var(--pink);
+        color: var(--green-deep);
+        transform: translateX(4px);
+    }
+    .cover-btn-arrow { font-size: 28px; }
+
+    /* ===========================================
+       INSTRUCTIONS SLIDE
+       =========================================== */
+    .instructions-slide {
+        background: var(--cream);
+    }
+    .instructions-slide .topbar-label { color: var(--green); }
+    .instructions-slide .topbar-right { color: var(--green); }
+    .instructions-slide .monogram { border-color: var(--green); color: var(--green); }
+    .instructions-body {
+        position: absolute;
+        top: 200px;
+        left: 120px;
+        right: 120px;
+        bottom: 160px;
+        display: flex;
+        flex-direction: column;
+    }
+    .instructions-eyebrow {
+        font-family: var(--font-mono);
+        font-size: 24px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--green);
+        margin-bottom: 24px;
+    }
+    .instructions-title {
+        font-family: var(--font-serif);
+        font-size: 96px;
+        font-weight: 500;
+        line-height: 1.0;
+        letter-spacing: -0.02em;
+        color: var(--green);
+        margin-bottom: 18px;
+    }
+    .instructions-rule {
+        width: 160px;
+        height: 2px;
+        background: var(--green);
+        margin: 24px 0 48px;
+    }
+    .rules-list {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        max-width: 1200px;
+    }
+    .rule-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 32px;
+    }
+    .rule-num {
+        font-family: var(--font-mono);
+        font-size: 28px;
+        font-weight: 500;
+        color: var(--green);
+        letter-spacing: 0.08em;
+        padding-top: 4px;
+        min-width: 50px;
+    }
+    .rule-text {
+        font-family: var(--font-serif);
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: var(--ink);
+    }
+    .rule-text strong {
+        font-weight: 600;
+        color: var(--green-deep);
+    }
+    .start-btn {
+        position: absolute;
+        bottom: 80px;
+        right: 120px;
+        display: inline-flex;
+        align-items: center;
+        gap: 18px;
+        padding: 20px 36px;
+        background: var(--green);
+        color: var(--pink);
+        border: none;
+        border-radius: 6px;
+        font-family: var(--font-mono);
+        font-size: 24px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background var(--duration) var(--ease-out), transform var(--duration) var(--ease-out);
+    }
+    .start-btn:hover {
+        background: var(--green-deep);
+        transform: translateX(4px);
+    }
+    .start-btn-arrow {
+        font-size: 28px;
+    }
+
+    /* ===========================================
+       QUESTION SLIDE
+       =========================================== */
+    .question-slide {
+        background: var(--cream);
+    }
+    .question-slide .topbar-label { color: var(--green); }
+    .question-slide .topbar-right { color: var(--green); }
+    .question-slide .monogram { border-color: var(--green); color: var(--green); }
+
+    .question-content {
+        position: absolute;
+        top: 200px;
+        left: 120px;
+        right: 120px;
+        bottom: 130px;
+        display: flex;
+        flex-direction: column;
+    }
+    .section-eyebrow {
+        font-family: var(--font-mono);
+        font-size: 24px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--green);
+        margin-bottom: 18px;
+    }
+    .question-number {
+        font-family: var(--font-serif);
+        font-size: 96px;
+        font-weight: 500;
+        line-height: 0.96;
+        letter-spacing: -0.02em;
+        color: var(--green);
+        margin-bottom: 8px;
+    }
+    .question-rule {
+        width: 120px;
+        height: 2px;
+        background: var(--green);
+        margin: 16px 0 28px;
+    }
+    .question-text {
+        font-family: var(--font-serif);
+        font-size: 34px;
+        font-weight: 400;
+        line-height: 1.4;
+        color: var(--ink);
+        max-width: 1680px;
+        margin-bottom: 40px;
+    }
+    .options {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        max-width: 1680px;
+    }
+    .option {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        width: 100%;
+        padding: 22px 32px;
+        background: var(--cream-2);
+        border: 2px solid var(--green);
+        border-radius: 6px;
+        cursor: pointer;
+        text-align: left;
+        font-family: inherit;
+        color: inherit;
+        transition: background 0.3s var(--ease-out), border-color 0.3s var(--ease-out), opacity 0.3s var(--ease-out);
+    }
+    .option:hover:not(:disabled) {
+        background: var(--cream);
+        border-color: var(--green-deep);
+    }
+    .option:disabled {
+        cursor: default;
+    }
+    .option-letter {
+        font-family: var(--font-mono);
+        font-size: 30px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        color: var(--green);
+        flex-shrink: 0;
+        width: 44px;
+        text-align: center;
+    }
+    .option-text {
+        font-family: var(--font-serif);
+        font-size: 30px;
+        font-weight: 400;
+        color: var(--ink);
+        line-height: 1.4;
+        flex: 1;
+    }
+    .option-label {
+        flex-shrink: 0;
+        margin-left: auto;
+        font-family: var(--font-mono);
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 6px 14px;
+        border-radius: 3px;
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity 0.3s var(--ease-out);
+    }
+    .option.has-label .option-label {
+        opacity: 1;
+    }
+    .option.user-correct {
+        background: var(--green);
+        border-color: var(--green-deep);
+    }
+    .option.user-correct .option-letter,
+    .option.user-correct .option-text {
+        color: var(--cream);
+    }
+    .option.user-correct .option-label {
+        background: var(--cream);
+        color: var(--green-deep);
+    }
+    .option.user-wrong {
+        background: var(--pink);
+        border-color: var(--pink-deep);
+    }
+    .option.user-wrong .option-letter,
+    .option.user-wrong .option-text {
+        color: var(--green-deep);
+    }
+    .option.user-wrong .option-label {
+        background: var(--green-deep);
+        color: var(--pink);
+    }
+    .option.correct {
+        background: var(--green-lite);
+        border-color: var(--green-deep);
+        animation: pulseCorrect 0.6s var(--ease-out);
+    }
+    .option.correct .option-letter,
+    .option.correct .option-text {
+        color: var(--cream);
+    }
+    .option.correct .option-label {
+        background: var(--cream);
+        color: var(--green-deep);
+    }
+    .option.faded {
+        opacity: 0.35;
+    }
+    @keyframes pulseCorrect {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.015); }
+        100% { transform: scale(1); }
+    }
+
+    .slide-footer {
+        position: absolute;
+        bottom: 56px;
+        left: 120px;
+        right: 120px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .progress-label {
+        font-family: var(--font-mono);
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--green);
+    }
+    .next-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 28px;
+        background: transparent;
+        color: var(--green);
+        border: 2px solid var(--green);
+        border-radius: 6px;
+        font-family: var(--font-mono);
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.3s var(--ease-out), color 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+    }
+    .next-btn:hover:not(:disabled) {
+        background: var(--green);
+        color: var(--pink);
+        transform: translateX(4px);
+    }
+    .next-btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
+
+    /* ===========================================
+       SCORE SLIDE
+       =========================================== */
+    .score-slide {
+        background: var(--green);
+        color: var(--cream);
+    }
+    .score-slide .topbar-label { color: var(--pink); }
+    .score-slide .topbar-right { color: var(--cream); }
+    .score-slide .monogram { border-color: var(--pink); color: var(--pink); }
+
+    .score-body {
+        position: absolute;
+        top: 180px;
+        left: 120px;
+        right: 120px;
+        bottom: 100px;
+        display: flex;
+        flex-direction: column;
+    }
+    .score-eyebrow {
+        font-family: var(--font-mono);
+        font-size: 24px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--cream);
+        margin-bottom: 12px;
+    }
+    .score-headline {
+        display: flex;
+        align-items: baseline;
+        gap: 24px;
+        margin-bottom: 8px;
+    }
+    .score-number {
+        font-family: var(--font-serif);
+        font-size: 240px;
+        font-weight: 500;
+        line-height: 0.92;
+        letter-spacing: -0.03em;
+        color: var(--pink);
+    }
+    .score-total {
+        font-family: var(--font-serif);
+        font-size: 80px;
+        font-weight: 500;
+        line-height: 1;
+        color: var(--cream);
+        opacity: 0.6;
+    }
+    .score-grade {
+        font-family: var(--font-mono);
+        font-size: 26px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--pink);
+        margin-bottom: 36px;
+    }
+    .kpi-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+        margin-bottom: 36px;
+    }
+    .kpi {
+        padding: 28px 32px 32px;
+        background: var(--cream-2);
+        border: 2px solid var(--green);
+        border-radius: 6px;
+        color: var(--green);
+    }
+    .kpi-value {
+        font-family: var(--font-serif);
+        font-size: 84px;
+        font-weight: 500;
+        line-height: 0.96;
+        letter-spacing: -0.02em;
+        color: var(--green);
+        margin-bottom: 6px;
+    }
+    .kpi-label {
+        font-family: var(--font-mono);
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--green-deep);
+    }
+    .wrong-section {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+    }
+    .wrong-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 18px;
+    }
+    .wrong-title {
+        font-family: var(--font-mono);
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--cream);
+    }
+    .wrong-count {
+        font-family: var(--font-mono);
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--pink);
+    }
+    .wrong-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        align-content: flex-start;
+    }
+    .wrong-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 18px;
+        background: transparent;
+        border: 2px solid var(--pink);
+        border-radius: 6px;
+        color: var(--pink);
+        font-family: var(--font-mono);
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        cursor: pointer;
+        transition: background 0.3s var(--ease-out), color 0.3s var(--ease-out);
+    }
+    .wrong-chip:hover {
+        background: var(--pink);
+        color: var(--green-deep);
+    }
+    .wrong-chip-q { font-weight: 700; }
+    .wrong-chip-ans {
+        font-family: var(--font-serif);
+        font-size: 16px;
+        letter-spacing: 0.04em;
+        opacity: 0.85;
+    }
+    .no-wrong {
+        font-family: var(--font-serif);
+        font-size: 40px;
+        font-weight: 500;
+        color: var(--pink);
+        line-height: 1.3;
+    }
+    .no-wrong-sub {
+        font-family: var(--font-serif);
+        font-size: 26px;
+        font-weight: 400;
+        color: var(--cream);
+        opacity: 0.7;
+        margin-top: 12px;
+    }
+    .restart-btn {
+        position: absolute;
+        bottom: 80px;
+        right: 120px;
+        display: inline-flex;
+        align-items: center;
+        gap: 18px;
+        padding: 18px 32px;
+        background: transparent;
+        color: var(--pink);
+        border: 2px solid var(--pink);
+        border-radius: 6px;
+        font-family: var(--font-mono);
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.3s var(--ease-out), color 0.3s var(--ease-out);
+    }
+    .restart-btn:hover {
+        background: var(--pink);
+        color: var(--green-deep);
+    }
+
+    /* ===========================================
+       LOADING OVERLAY (questions.json loader)
+       =========================================== */
+    .loading-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(46, 74, 42, 0.97);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 200;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.5s var(--ease-out);
+        padding: 0 120px;
+        text-align: center;
+    }
+    .loading-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .loading-overlay.hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+    .loading-overlay.error {
+        opacity: 1;
+        pointer-events: auto;
+        background: var(--green);
+    }
+    .loading-spinner {
+        width: 56px;
+        height: 56px;
+        border: 3px solid var(--pink);
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spinLoader 1s linear infinite;
+        margin-bottom: 32px;
+    }
+    .loading-overlay.error .loading-spinner { display: none; }
+    @keyframes spinLoader { to { transform: rotate(360deg); } }
+    .loading-text {
+        font-family: var(--font-mono);
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--cream);
+    }
+    .loading-overlay.error .loading-text {
+        font-size: 28px;
+        color: var(--pink);
+        margin-bottom: 18px;
+        letter-spacing: 0.14em;
+    }
+    .loading-overlay.error .loading-text::before {
+        content: '⚠  ';
+    }
+    .loading-msg {
+        font-family: var(--font-mono);
+        font-size: 18px;
+        color: var(--cream);
+        opacity: 0.85;
+        margin-bottom: 28px;
+        word-break: break-all;
+    }
+    .loading-msg:empty { display: none; }
+    .loading-tip {
+        font-family: var(--font-serif);
+        font-size: 22px;
+        line-height: 1.6;
+        color: var(--cream);
+        opacity: 0.75;
+        max-width: 900px;
+    }
+    .loading-tip code {
+        font-family: var(--font-mono);
+        font-size: 18px;
+        background: rgba(0,0,0,0.25);
+        padding: 3px 10px;
+        border-radius: 3px;
+        color: var(--pink);
+    }
+    .retry-btn {
+        margin-top: 32px;
+        padding: 14px 32px;
+        background: transparent;
+        color: var(--pink);
+        border: 2px solid var(--pink);
+        border-radius: 6px;
+        font-family: var(--font-mono);
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.3s var(--ease-out), color 0.3s var(--ease-out);
+    }
+    .retry-btn:hover {
+        background: var(--pink);
+        color: var(--green-deep);
+    }
+    .loading-overlay.error .loading-msg { display: block !important; }
+    .loading-overlay.error .loading-tip { display: block !important; }
+    .loading-overlay.error .retry-btn { display: inline-flex !important; }
+
+    /* ===========================================
+       REVEAL ANIMATIONS
+       =========================================== */
+    .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity var(--duration) var(--ease-out), transform var(--duration) var(--ease-out);
+    }
+    .slide.active .reveal,
+    .slide.visible .reveal {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .reveal:nth-child(1) { transition-delay: 0.08s; }
+    .reveal:nth-child(2) { transition-delay: 0.16s; }
+    .reveal:nth-child(3) { transition-delay: 0.24s; }
+    .reveal:nth-child(4) { transition-delay: 0.32s; }
+    .reveal:nth-child(5) { transition-delay: 0.40s; }
+    .reveal:nth-child(6) { transition-delay: 0.48s; }
+    .reveal:nth-child(7) { transition-delay: 0.56s; }
+    .reveal:nth-child(8) { transition-delay: 0.64s; }
+    .reveal:nth-child(9) { transition-delay: 0.72s; }
+
+    /* ===========================================
+       PROGRESS BAR (top of question slides)
+       =========================================== */
+    .progress-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 4px;
+        background: var(--pink);
+        transition: width 0.5s var(--ease-out);
+        z-index: 10;
+    }
+
+    /* ===========================================
+       FOOTER NAVIGATION HINT
+       =========================================== */
+    .nav-hint {
+        position: fixed;
+        bottom: 18px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: var(--font-mono);
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(46, 74, 42, 0.45);
+        z-index: 1000;
+        pointer-events: none;
+        user-select: none;
+    }
+    .score-slide ~ .nav-hint { color: rgba(232, 156, 177, 0.5); }
+</style>
+</head>
+<body>
+<div class="deck-viewport">
+    <main class="deck-stage" id="deckStage">
+
+        <!-- ============================================
+             SLIDE 1: COVER
+             ============================================ -->
+        <section class="slide cover-slide active" data-index="0">
+            <div class="topbar">
+                <div class="topbar-label">Biology · Qualifying Exam</div>
+                <div class="monogram">BI</div>
+            </div>
+            <div class="cover-main">
+                <div class="cover-eyebrow reveal">高中合格考 · 生物</div>
+                <div class="cover-title reveal">生物练习题</div>
+                <div class="cover-rule reveal"></div>
+                <div class="cover-subtitle reveal">
+                    25 道选择题，覆盖细胞结构与功能、组成细胞的物质、酶与ATP、细胞呼吸与光合作用、细胞分裂、遗传规律与变异、生物进化。
+                </div>
+            </div>
+            <div class="cover-stamp">
+                <div class="cover-stamp-num">25</div>
+                <div class="cover-stamp-line"></div>
+                <div class="cover-stamp-label">Questions</div>
+            </div>
+            <div class="footline cover-footline">
+                <span>BIO · BIOLOGY</span>
+                <span>2026 SPRING</span>
+            </div>
+            <button class="cover-btn" data-action="begin">
+                <span>开始</span>
+                <span class="cover-btn-arrow">→</span>
+            </button>
+            <!-- Loading / error overlay for questions.json -->
+            <div class="loading-overlay active" id="loadingState">
+                <div class="loading-spinner"></div>
+                <div class="loading-text">questions.json</div>
+                <div class="loading-msg" style="display:none;"></div>
+                <div class="loading-tip" style="display:none;">
+                    直接打开本地 HTML 可能被浏览器拦截 CORS。<br>
+                    请在该目录下启动本地服务器后访问：<br>
+                    <code>python -m http.server 8000</code><br>
+                    然后打开 <code>http://localhost:8000</code>
+                </div>
+                <button class="retry-btn" style="display:none;" onclick="location.reload()">重试</button>
+            </div>
+        </section>
+
+        <!-- ============================================
+             SLIDE 2: INSTRUCTIONS
+             ============================================ -->
+        <section class="slide instructions-slide" data-index="1">
+            <div class="topbar">
+                <div class="topbar-label">Exam Brief</div>
+                <div class="monogram">BI</div>
+            </div>
+            <div class="instructions-body">
+                <div class="instructions-eyebrow reveal">BEFORE YOU BEGIN</div>
+                <div class="instructions-title reveal">考试须知</div>
+                <div class="instructions-rule reveal"></div>
+                <div class="rules-list">
+                    <div class="rule-item reveal">
+                        <div class="rule-num">01</div>
+                        <div class="rule-text">
+                            共 <strong>25</strong> 道选择题，每题 <strong>4</strong> 分，<strong>满分 100 分</strong>。
+                        </div>
+                    </div>
+                    <div class="rule-item reveal">
+                        <div class="rule-num">02</div>
+                        <div class="rule-text">
+                            每题须<strong>先选择答案</strong>，点击"下一题"才能继续。
+                        </div>
+                    </div>
+                    <div class="rule-item reveal">
+                        <div class="rule-num">03</div>
+                        <div class="rule-text">
+                            完成后显示得分、正确率与等级评定。
+                        </div>
+                    </div>
+                    <div class="rule-item reveal">
+                        <div class="rule-num">04</div>
+                        <div class="rule-text">
+                            得分页可点击<strong>错题</strong>回顾，重新查看题目与正确答案。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="start-btn" data-action="start">
+                <span>开始测试</span>
+                <span class="start-btn-arrow">→</span>
+            </button>
+        </section>
+
+        <!-- ============================================
+             QUESTION SLIDES (generated by JS)
+             ============================================ -->
+
+        <!-- ============================================
+             LAST SLIDE: SCORE
+             ============================================ -->
+        <section class="slide score-slide" data-index="27">
+            <div class="topbar">
+                <div class="topbar-label">Results</div>
+                <div class="monogram">BI</div>
+            </div>
+            <div class="score-body">
+                <div class="score-eyebrow reveal">你的得分 · YOUR SCORE</div>
+                <div class="score-headline reveal">
+                    <div class="score-number" id="scoreNumber">0</div>
+                    <div class="score-total">/ 100</div>
+                </div>
+                <div class="score-grade reveal" id="scoreGrade">GRADE</div>
+                <div class="kpi-row reveal">
+                    <div class="kpi">
+                        <div class="kpi-value" id="kpiCorrect">0</div>
+                        <div class="kpi-label">正确</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-value" id="kpiWrong">0</div>
+                        <div class="kpi-label">错误</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-value" id="kpiAccuracy">0%</div>
+                        <div class="kpi-label">正确率</div>
+                    </div>
+                </div>
+                <div class="wrong-section reveal">
+                    <div class="wrong-header">
+                        <div class="wrong-title">错题回顾 · Review</div>
+                        <div class="wrong-count" id="wrongCount">0 题</div>
+                    </div>
+                    <div class="wrong-chips" id="wrongChips"></div>
+                </div>
+            </div>
+            <button class="restart-btn" data-action="restart">
+                <span>重新开始</span>
+                <span style="font-size: 24px;">↺</span>
+            </button>
+        </section>
+
+    </main>
+</div>
+
+<div class="nav-hint" id="navHint">←  →  ·  方向键切换</div>
+
+<script>
+/* ===========================================
+   BIOLOGY QUIZ — DATA & CONTROLLER
+   Data is loaded from questions.json on page load.
+   =========================================== */
+
+const OPTION_KEYS = ['A', 'B', 'C', 'D'];
+let QUIZ_DATA = null;
+let QUIZ_INSTANCE = null;
+
+/* Load questions.json. Throws on failure so the caller can show an error. */
+async function loadQuizData() {
+    const res = await fetch('questions.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status + ' · ' + res.statusText);
+    const data = await res.json();
+    if (!data || !Array.isArray(data.questions) || data.questions.length === 0) {
+        throw new Error('JSON 格式错误：缺少 questions 数组');
+    }
+    return data;
+}
+
+/* ===========================================
+   CONTROLLER
+   =========================================== */
+class BiologyQuiz {
+    constructor(data) {
+        this.data = data;
+        this.questions = data.questions.map((q, i) => ({
+            id: q.id || (i + 1),
+            section: q.section || '',
+            q: q.question,
+            opts: q.options,
+            a: OPTION_KEYS.indexOf(q.answer),
+            note: q.note || ''
+        }));
+        const cfg = data.config || {};
+        this.total = this.questions.length;
+        this.maxScore = cfg.maxScore || 100;
+        this.pointsPerQ = cfg.pointsPerQuestion != null
+            ? cfg.pointsPerQuestion
+            : (this.maxScore / this.total);
+        this.title = data.title || '生物练习题';
+        this.subtitle = data.subtitle || '';
+
+        this.userAnswers = new Array(this.total).fill(null);
+        this.currentSlide = 0;
+        this.stage = document.getElementById('deckStage');
+        this.slides = [];
+        this.isAdvancing = false;
+        this.init();
+    }
+
+    init() {
+        this.buildQuestionSlides();
+        this.slides = Array.from(this.stage.querySelectorAll('.slide'));
+        this.setupStageScale();
+        this.setupKeyboardNav();
+        this.setupClickHandlers();
+        this.showSlide(0);
+        this.updateNavHint();
+    }
+
+    buildQuestionSlides() {
+        const scoreSlide = this.stage.querySelector('.score-slide');
+        const frag = document.createDocumentFragment();
+
+        this.questions.forEach((q, i) => {
+            const slide = document.createElement('section');
+            slide.className = 'slide question-slide';
+            slide.dataset.index = String(2 + i);
+            slide.dataset.questionIndex = String(i);
+
+            const isLast = i === this.total - 1;
+            const nextLabel = isLast ? '完成 · VIEW SCORE' : '下一题';
+
+            const optsHTML = q.opts.map((text, k) => `
+                <button class="option" data-option="${OPTION_KEYS[k]}" data-q-index="${i}" type="button">
+                    <span class="option-letter">${OPTION_KEYS[k]}</span>
+                    <span class="option-text">${text}</span>
+                    <span class="option-label"></span>
+                </button>
+            `).join('');
+
+            slide.innerHTML = `
+                <div class="progress-bar" style="width: ${((i + 1) / this.total) * 100}%"></div>
+                <div class="topbar">
+                    <div class="topbar-label">${q.section} · ${String(i + 1).padStart(2, '0')} / ${String(this.total).padStart(2, '0')}</div>
+                    <div class="monogram">BI</div>
+                </div>
+                <div class="question-content">
+                    <div class="section-eyebrow reveal">${q.section}</div>
+                    <div class="question-number reveal">${String(i + 1).padStart(2, '0')}</div>
+                    <div class="question-rule reveal"></div>
+                    <div class="question-text reveal">${q.q}</div>
+                    <div class="options reveal">
+                        ${optsHTML}
+                    </div>
+                </div>
+                <div class="slide-footer">
+                    <div class="progress-label">${String(i + 1).padStart(2, '0')} / ${String(this.total).padStart(2, '0')}  ·  PROGRESS</div>
+                    <button class="next-btn" data-action="next" disabled>
+                        <span>${nextLabel}</span>
+                        <span style="font-size: 22px;">→</span>
+                    </button>
+                </div>
+            `;
+            frag.appendChild(slide);
+        });
+
+        this.stage.insertBefore(frag, scoreSlide);
+    }
+
+    setupStageScale() {
+        const scale = () => {
+            const factor = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+            const x = (window.innerWidth - 1920 * factor) / 2;
+            const y = (window.innerHeight - 1080 * factor) / 2;
+            this.stage.style.transform = `translate(${x}px, ${y}px) scale(${factor})`;
+        };
+        scale();
+        window.addEventListener('resize', scale);
+    }
+
+    setupKeyboardNav() {
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                e.preventDefault();
+                this.nextSlide();
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                this.prevSlide();
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                this.showSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                this.showSlide(this.slides.length - 1);
+            }
+        });
+    }
+
+    setupClickHandlers() {
+        this.stage.addEventListener('click', (e) => {
+            const opt = e.target.closest('.option');
+            if (opt && !opt.disabled) {
+                this.handleOptionClick(opt);
+                return;
+            }
+            const actionBtn = e.target.closest('[data-action]');
+            if (!actionBtn) return;
+            const action = actionBtn.dataset.action;
+            if (action === 'next') this.handleNext();
+            else if (action === 'begin') this.showSlide(1);
+            else if (action === 'start') this.showSlide(2);
+            else if (action === 'restart') this.restart();
+        });
+
+        document.getElementById('wrongChips').addEventListener('click', (e) => {
+            const chip = e.target.closest('.wrong-chip');
+            if (chip) {
+                const qIndex = parseInt(chip.dataset.jump, 10);
+                this.showSlide(2 + qIndex);
+            }
+        });
+    }
+
+    handleOptionClick(optBtn) {
+        const qIndex = parseInt(optBtn.dataset.qIndex, 10);
+        const selected = optBtn.dataset.option;
+        const correctKey = OPTION_KEYS[this.questions[qIndex].a];
+
+        this.userAnswers[qIndex] = selected;
+
+        const slide = optBtn.closest('.slide');
+        const options = slide.querySelectorAll('.option');
+        const isCorrect = selected === correctKey;
+
+        options.forEach((opt) => {
+            opt.disabled = true;
+            const key = opt.dataset.option;
+            const labelEl = opt.querySelector('.option-label');
+            if (key === selected) {
+                opt.classList.add('has-label');
+                if (isCorrect) {
+                    opt.classList.add('user-correct');
+                    labelEl.textContent = '✓ 正确';
+                } else {
+                    opt.classList.add('user-wrong');
+                    labelEl.textContent = '✗ 你的选择';
+                }
+            } else if (key === correctKey) {
+                opt.classList.add('has-label', 'correct');
+                labelEl.textContent = '✓ 正确答案';
+            } else {
+                opt.classList.add('faded');
+            }
+        });
+
+        const nextBtn = slide.querySelector('.next-btn');
+        nextBtn.disabled = false;
+    }
+
+    handleNext() {
+        const current = this.slides[this.currentSlide];
+        if (current.classList.contains('question-slide')) {
+            const qIndex = parseInt(current.dataset.questionIndex, 10);
+            if (this.userAnswers[qIndex] == null) return;
+        }
+        this.nextSlide();
+    }
+
+    nextSlide() {
+        const current = this.slides[this.currentSlide];
+        if (current.classList.contains('question-slide')) {
+            const qIndex = parseInt(current.dataset.questionIndex, 10);
+            if (this.userAnswers[qIndex] == null) return;
+        }
+        const next = this.currentSlide + 1;
+        if (next < this.slides.length) {
+            if (next === this.slides.length - 1) this.computeAndShowScore();
+            this.showSlide(next);
+        }
+    }
+
+    prevSlide() {
+        if (this.currentSlide > 0) this.showSlide(this.currentSlide - 1);
+    }
+
+    showSlide(index) {
+        index = Math.max(0, Math.min(index, this.slides.length - 1));
+        this.currentSlide = index;
+        this.slides.forEach((s, i) => {
+            const isActive = i === index;
+            s.classList.toggle('active', isActive);
+            s.classList.toggle('visible', isActive);
+        });
+        const cur = this.slides[index];
+        if (cur && cur.classList.contains('question-slide')) {
+            const qIndex = parseInt(cur.dataset.questionIndex, 10);
+            const nextBtn = cur.querySelector('.next-btn');
+            if (nextBtn) nextBtn.disabled = this.userAnswers[qIndex] == null;
+        }
+        this.updateNavHint();
+    }
+
+    updateNavHint() {
+        const hint = document.getElementById('navHint');
+        if (!hint) return;
+        const cur = this.slides[this.currentSlide];
+        if (cur && cur.classList.contains('question-slide')) {
+            const qIndex = parseInt(cur.dataset.questionIndex, 10);
+            if (this.userAnswers[qIndex] == null) {
+                hint.textContent = '←  →  ·  先选答案再进入下一题';
+            } else {
+                hint.textContent = '←  →  ·  按 → 进入下一题';
+            }
+        } else {
+            hint.textContent = '←  →  ·  方向键切换';
+        }
+    }
+
+    computeAndShowScore() {
+        let correct = 0;
+        const wrong = [];
+        for (let i = 0; i < this.total; i++) {
+            if (this.userAnswers[i] === OPTION_KEYS[this.questions[i].a]) {
+                correct++;
+            } else {
+                wrong.push(i);
+            }
+        }
+        const totalScore = Math.round(correct * this.pointsPerQ);
+        const accuracy = Math.round((correct / this.total) * 100);
+        const grade = this.getGrade(totalScore);
+
+        document.getElementById('scoreNumber').textContent = totalScore;
+        document.getElementById('scoreGrade').textContent =
+            `GRADE ${grade.letter}  ·  ${grade.label}  ·  ${accuracy}% ACCURACY`;
+        document.getElementById('kpiCorrect').textContent = correct;
+        document.getElementById('kpiWrong').textContent = wrong.length;
+        document.getElementById('kpiAccuracy').textContent = accuracy + '%';
+        document.getElementById('wrongCount').textContent = `${wrong.length} 题`;
+
+        const chipsEl = document.getElementById('wrongChips');
+        if (wrong.length === 0) {
+            chipsEl.innerHTML = `
+                <div>
+                    <div class="no-wrong">🎉 全部回答正确</div>
+                    <div class="no-wrong-sub">恭喜，你已掌握本套题目的所有知识点。</div>
+                </div>
+            `;
+        } else {
+            chipsEl.innerHTML = wrong.map(i => `
+                <button class="wrong-chip" data-jump="${i}">
+                    <span class="wrong-chip-q">Q ${String(i + 1).padStart(2, '0')}</span>
+                    <span class="wrong-chip-ans">你的 ${this.userAnswers[i] || '—'} → 正确 ${OPTION_KEYS[this.questions[i].a]}</span>
+                </button>
+            `).join('');
+        }
+    }
+
+    getGrade(score) {
+        if (score >= 90) return { letter: 'A', label: '优秀 · EXCELLENT' };
+        if (score >= 80) return { letter: 'B', label: '良好 · GOOD' };
+        if (score >= 70) return { letter: 'C', label: '中等 · AVERAGE' };
+        if (score >= 60) return { letter: 'D', label: '及格 · PASS' };
+        return { letter: 'E', label: '待加强 · NEEDS WORK' };
+    }
+
+    restart() {
+        this.userAnswers = new Array(this.total).fill(null);
+        this.slides.forEach((s) => {
+            if (!s.classList.contains('question-slide')) return;
+            s.querySelectorAll('.option').forEach((opt) => {
+                opt.disabled = false;
+                opt.classList.remove('has-label', 'user-correct', 'user-wrong', 'correct', 'faded');
+                const label = opt.querySelector('.option-label');
+                if (label) label.textContent = '';
+            });
+            const nb = s.querySelector('.next-btn');
+            if (nb) nb.disabled = true;
+        });
+        this.showSlide(0);
+    }
+}
+
+/* ===========================================
+   BOOTSTRAP — load questions.json, then init
+   =========================================== */
+function setLoadingState(state, message) {
+    const overlay = document.getElementById('loadingState');
+    if (!overlay) return;
+    overlay.classList.remove('active', 'error', 'hidden');
+    if (state === 'loading') overlay.classList.add('active');
+    else if (state === 'error') {
+        overlay.classList.add('error');
+        overlay.querySelector('.loading-msg').textContent = message || '加载失败';
+    } else if (state === 'hidden') overlay.classList.add('hidden');
+}
+
+function lockNavigation(locked) {
+    document.querySelectorAll('.cover-btn, .start-btn').forEach(btn => {
+        if (btn) btn.disabled = !!locked;
+    });
+}
+
+async function bootstrap() {
+    setLoadingState('loading');
+    lockNavigation(true);
+    try {
+        QUIZ_DATA = await loadQuizData();
+        QUIZ_INSTANCE = new BiologyQuiz(QUIZ_DATA);
+        setLoadingState('hidden');
+        lockNavigation(false);
+        if (QUIZ_DATA.subtitle) {
+            const sub = document.querySelector('.cover-subtitle');
+            if (sub) sub.textContent = QUIZ_DATA.subtitle;
+        }
+    } catch (err) {
+        console.error('[Quiz] Failed to load questions.json:', err);
+        setLoadingState('error', err.message || String(err));
+    }
+}
+
+bootstrap();
+</script>
+</body>
+</html>
